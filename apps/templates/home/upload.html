@@ -1,0 +1,105 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Forms {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <div class="py-4">
+      <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+          <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+              <li class="breadcrumb-item">
+                  <a href="#">
+                      <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                  </a>
+              </li>
+              <li class="breadcrumb-item"><a href="#">Stream</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Upload</li>
+          </ol>
+      </nav>
+      <div class="d-flex justify-content-between w-100 flex-wrap">
+          <div class="mb-3 mb-lg-0">
+              <h1 class="h4">Upload</h1>
+          </div>
+          
+      </div>
+  </div>
+
+  <form class="ui form" action="/uploads" method="post" enctype="multipart/form-data">
+  <div class="row">
+      <div class="col-12 mb-4">
+          <div class="card border-0 shadow components-section">
+              <div class="card-body">     
+                  <div class="row mb-4">
+                      <div class="col-lg-4 col-sm-6">
+                          <!-- Form -->
+                          
+                          <!-- Form -->
+                          <div class="col-md-6 mb-3">
+                            <label for="gender">Cotegary</label>
+                            <select class="form-select mb-0" id="gender" aria-label="Gender select example" name="Cotegary">
+                                <option selected value="Film and Animation">Film and Animation</option>
+                                <option value="Autos and Vehicles">Autos and Vehicles</option>
+                                <option value="Comedy">Comedy</option>
+                                <option value="Music">Music</option>
+                                <option value="Pets & Animals">Pets & Animals</option>
+                                <option value="Sports">Sports</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Gaming">Gaming</option>
+                                <option value="Education">Education</option>
+                                <option value="Science and Technology">Science and Technology</option>
+                                <option value="News and Politics">News and Politics</option>
+                                <option value="People and Blogs">People and Blogs</option>
+                                <option value="Travel and Events">Travel and Events</option>
+                            </select>
+                        </div>
+
+                          <!-- End of Form -->
+                          <!-- Form -->
+                          <div class="mb-3">
+                              <label for="firstName">First name</label>
+                              <input type="text" class="form-control is-valid" id="firstName" value="Mark" required name="name" readonly>
+                              <div class="valid-feedback">
+                                  Looks good!
+                              </div>                
+                          </div>
+                          <!-- End of Form -->
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+
+                          <!-- Form -->
+                          <div class="my-4">
+                              <label for="textarea">Video Description</label>
+                              <textarea class="form-control" placeholder="Enter your message..." id="textarea" rows="4" name="desc"></textarea>
+                          </div>
+                         
+                          <!-- End of Form -->
+                      </div>
+                      <div class="mb-3">
+                        <label for="formFile" class="form-label">Select Vdeo</label>
+                        <input class="form-control" type="file" id="formFile" name="video" accept=".mp4">
+                    </div>
+                          <!-- Form -->
+                          <div class="mb-3">
+                            <label for="formFile" class="form-label">Select Thumbnail</label>
+                            <input class="form-control" type="file" id="formFile"  name="thumb" accept=".jpg">
+                        </div>
+                          <!-- End of Form -->
+                          <div class="card-body">
+                            <button type="submit" class="btn btn-success" value="/uploads" onclick="javascript:alert('Video Uploaded successfully');">Upload</button>
+                        </div>
+                      </div>
+                  </div>
+                  
+              </div>
+          </div>
+      </div>
+  </div>
+  </form>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

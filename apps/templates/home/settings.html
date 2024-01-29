@@ -1,0 +1,155 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Settings {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<head>
+    <title>YouTube</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <link rel="stylesheet" href="static/Style/common.css" />
+    <link rel="stylesheet" href="static/Style/header.css" />
+    <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet">
+    <script src="https://vjs.zencdn.net/7.15.4/video.js"></script>
+    
+  </head>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+       
+       
+    </div>
+    <div class="row">
+        <div class="col-12 col-xl-8">
+            <div class="card card-body border-0 shadow mb-4">
+                
+                <div class="video-grid">
+                    {% for item in data1 %}
+                        <div class="videocard">
+                            <div class="video-container" data-video-src='{{item[0]}}'>
+                                <div class="thumbnail" data-container-id="{{loop.index}}">
+                                    <img src='{{item[3]}}' alt="{{item[3]}} Thumbnail">
+                                </div>
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" allowfullscreen></iframe>
+                                </div>
+                            </div>
+              
+                          <div class="togrid">
+                            <div class="pro-pic">
+                              <img class="profile" src="static/profile pic/a1.jpg" />
+                            </div>
+                            <div class="video-info">
+                              <div class="videotile">
+                                <p class="videotiles">
+                                  {{item[5]}}
+                                </p>
+                              </div>
+                              <div class="creators"><p class="creator">{{item[1]}}</p></div>
+                              <div class="view">
+                                <p class="views">88,673 views &#183; {{item[2]}}</p>
+                              </div>
+                            </div>
+                          </div>
+                          
+                  </div>
+                  {% endfor %}
+              
+              </div>
+                  
+                
+                <script>
+                  document.addEventListener("DOMContentLoaded", function () {
+                      var videoContainers = document.querySelectorAll('.video-container');
+              
+                      videoContainers.forEach(function (container) {
+                          var iframe = container.querySelector('iframe');
+                          var thumbnail = container.querySelector('.thumbnail');
+              
+                          // Set thumbnail click event
+                          thumbnail.addEventListener('click', function () {
+                              // Hide the thumbnail
+                              thumbnail.style.display = 'none';
+              
+                              // Set video source and play
+                              var videoSrc = container.getAttribute('data-video-src');
+                              iframe.src = videoSrc;
+                              iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                          });
+              
+                          // Set iframe click event to pause video and show thumbnail
+                          iframe.addEventListener('click', function () {
+                              stopAndShowThumbnail();
+                          });
+              
+                          function stopAndShowThumbnail() {
+                              // Stop the video
+                              iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                              
+                              // Show the thumbnail
+                              thumbnail.style.display = 'block';
+                          }
+                      });
+                  });
+              </script>     
+                    
+            </div>
+            
+        </div>
+        <div class="col-12 col-xl-4">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card shadow border-0 text-center p-0">
+                        <div class="profile-cover rounded-top" data-background="{{ config.ASSETS_ROOT }}/img/profile-cover.jpg"></div>
+                        <div class="card-body pb-5">
+                            <img src="{{ config.ASSETS_ROOT }}/img/team/profile-picture-1.jpg" class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Neil Portrait">
+                            
+                            <h5 class="fw-normal">
+                                {{ current_user.username }}
+                            </h5>
+                            <p class="text-gray mb-4">
+                                {{ current_user.email }}
+                            </p>
+                            
+                        </div>
+                      </div>
+                </div>
+                <div class="col-12">
+                    <div class="card card-body border-0 shadow mb-4">
+                        <h2 class="h5 mb-4">No of Videos</h2>
+                        <div class="d-flex align-items-center">
+                            <div class="me-3">
+                                <!-- Avatar -->
+                                <h1>
+                                    Total Videos
+                                    {{data3}}
+                                </h1>
+                                                        
+                            </div>
+                            <div class="file-field">
+                                
+                              </div>                                        
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card card-body border-0 shadow">
+                        <h2 class="h5 mb-4">Select cover photo</h2>
+                        <div class="d-flex align-items-center">
+                            <div class="me-3">
+                                <!-- Avatar -->
+                                <img class="rounded avatar-xl" src="{{ config.ASSETS_ROOT }}/img/profile-cover.jpg" alt="change cover">
+                            </div>
+                                                                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

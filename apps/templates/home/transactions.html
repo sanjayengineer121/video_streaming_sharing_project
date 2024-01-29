@@ -1,0 +1,100 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+  <head>
+    <title>YouTube</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="static/Style/Youtube-style.css" />
+    <link rel="stylesheet" href="static/Style/common.css" />
+    <link rel="stylesheet" href="static/Style/header.css" />
+    <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet">
+    <script src="https://vjs.zencdn.net/7.15.4/video.js"></script>
+    
+  </head>
+
+  <body>
+    <div class="video-grid">
+      {% for item in data1 %}
+          <div class="videocard">
+              <div class="video-container" data-video-src='{{item[0]}}'>
+                  <div class="thumbnail" data-container-id="{{loop.index}}">
+                      <img src='{{item[3]}}' alt="{{item[3]}} Thumbnail">
+                  </div>
+                  <div class="embed-responsive embed-responsive-16by9">
+                      <iframe class="embed-responsive-item" allowfullscreen></iframe>
+                  </div>
+              </div>
+
+            <div class="togrid">
+              <div class="pro-pic">
+                <img class="profile" src="static/profile pic/a1.jpg" />
+              </div>
+              <div class="video-info">
+                <div class="videotile">
+                  <p class="videotiles">
+                    {{item[5]}}
+                  </p>
+                </div>
+                <div class="creators"><p class="creator">{{item[1]}}</p></div>
+                <div class="view">
+                  <p class="views">88,673 views &#183; {{item[2]}}</p>
+                </div>
+              </div>
+            </div>
+            
+    </div>
+    {% endfor %}
+
+</div>
+    
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var videoContainers = document.querySelectorAll('.video-container');
+
+        videoContainers.forEach(function (container) {
+            var iframe = container.querySelector('iframe');
+            var thumbnail = container.querySelector('.thumbnail');
+
+            // Set thumbnail click event
+            thumbnail.addEventListener('click', function () {
+                // Hide the thumbnail
+                thumbnail.style.display = 'none';
+
+                // Set video source and play
+                var videoSrc = container.getAttribute('data-video-src');
+                iframe.src = videoSrc;
+                iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            });
+
+            // Set iframe click event to pause video and show thumbnail
+            iframe.addEventListener('click', function () {
+                stopAndShowThumbnail();
+            });
+
+            function stopAndShowThumbnail() {
+                // Stop the video
+                iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                
+                // Show the thumbnail
+                thumbnail.style.display = 'block';
+            }
+        });
+    });
+</script>
+
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

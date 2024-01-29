@@ -1,0 +1,140 @@
+
+.header{
+
+    height: 55px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(228, 223, 223);
+    z-index: 10;
+ 
+
+}
+.nofication{
+    position: relative;
+}
+.not-count{
+    border-radius: 50px;
+    background-color: rgb(184, 1, 1);
+    color: rgb(255, 255, 255);
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-left: 4px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-right: 4px;
+    font-size: 10px;
+    font-weight: 500;
+    font-family: Roboto,arial;
+    
+}
+.left-area{
+    margin-right: 50px;
+    display: flex;
+    align-items: center;
+}
+.midle-area{
+    flex: 1;
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+}
+.right-area{
+   
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 200px;   
+    margin-right: 20px;
+    flex-shrink: 0;
+    margin-left: 10px;
+}
+.hambur-icon{
+    height: 24px;
+    margin-left: 24px;
+    margin-right: 24px;
+    cursor: pointer;
+}
+.youtube-logo{
+    height: 20px;
+}
+.search-icon{
+    display: flex;
+    align-items: center;
+    width: 64px;
+    height: 36px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(184, 181, 181);
+    margin-left: -1px;
+    border-radius: 0 20px 20px 0;
+    cursor: pointer;
+    background-color: #f8f8f8;
+    
+}
+.searchicon{
+    height: 25px;
+    margin-left: 10px;
+
+}
+.voiceicon{
+    height: 25px;
+}
+.searchbar{
+    font-weight: 400;
+    padding-left: 10px;
+    flex: 1;
+    font-size: 16px;
+    height: 32px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(170, 170, 170);
+    border-radius: 20px 0 0 20px;
+    box-shadow: inset 1p 2px 3px 
+    rgba(0, 0, 0, 05);
+    cursor: pointer;
+
+}
+.voice-icon{
+    display: flex;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    margin-left: 10px;
+    border-radius: 20px;
+    border: none;
+    background-color: #f8f8f8;
+
+}
+.searchbar::placeholder{
+    font-family: Roboto;
+    font-size: 16px;
+}
+.upload-icon{
+    height: 24px;
+    cursor: pointer;
+
+}
+.apps-icon{
+    height: 24px;
+
+}
+.notifi-icon{
+    height: 24px;
+
+}
+.profile-icon{
+    height: 32px;
+    border-radius: 16px;
+    cursor: pointer;
+
+}
