@@ -7,17 +7,13 @@
 
 {% block content %}
   <head>
-    <title>YouTube</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      href="style/assets/css/css2.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="static/Style/Youtube-style.css" />
     <link rel="stylesheet" href="static/Style/common.css" />
     <link rel="stylesheet" href="static/Style/header.css" />
-    <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet">
-    <script src="https://vjs.zencdn.net/7.15.4/video.js"></script>
+    
     
   </head>
 
@@ -46,7 +42,7 @@
                 </div>
                 <div class="creators"><p class="creator">{{item[1]}}</p></div>
                 <div class="view">
-                  <p class="views">88,673 views &#183; {{item[2]}}</p>
+                  <p class="views"> &#183; {{item[2]}}</p>
                 </div>
               </div>
             </div>
@@ -56,42 +52,124 @@
 
 </div>
     
+
+ 
+<link rel="stylesheet" type="text/css" href="style/assets/css/slick.min.css"/>
+<link rel="stylesheet" type="text/css" href="style/assets/css/slick-theme.min.css"/>
+<style>
+  /* Your CSS styles here */
+  .video-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .videocard {
+    width: calc(33.33% - 20px);
+    margin: 10px;
+    position: relative;
+  }
+  .thumbnail {
+    cursor: pointer;
+    
+  }
+  .big-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+  .big-screen iframe {
+    width: 80%;
+    height: 80%;
+  }
+  .sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background-color: #f1f1f1;
+    overflow-y: scroll;
+    display: none;
+    
+  }
   
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var videoContainers = document.querySelectorAll('.video-container');
+  .sidebar .thumbnail {
+    cursor: pointer;
+    height: 200px; /* Adjust as needed */
+    width: 200px; /* Adjust as needed */
+    margin-bottom: 10px;
+  }
+</style>
 
-        videoContainers.forEach(function (container) {
-            var iframe = container.querySelector('iframe');
-            var thumbnail = container.querySelector('.thumbnail');
+<div class="video-grid">
+  <!-- Your video cards go here -->
+</div>
 
-            // Set thumbnail click event
-            thumbnail.addEventListener('click', function () {
-                // Hide the thumbnail
-                thumbnail.style.display = 'none';
+<div class="big-screen" id="big-screen">
+  <iframe id="big-video" src="" frameborder="0" allowfullscreen></iframe>
+</div>
 
-                // Set video source and play
-                var videoSrc = container.getAttribute('data-video-src');
-                iframe.src = videoSrc;
-                iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-            });
+<div class="sidebar" id="sidebar">
+  <div class="slider">
+    {% for item in data1 %}
+          <div class="videocard">
+              <div class="video-container" data-video-src='{{item[0]}}'>
+                  <div class="thumbnail" data-container-id="{{loop.index}}">
+                      <img src='{{item[3]}}' alt="{{item[3]}} Thumbnail">
+                  </div>
+                  <div class="embed-responsive embed-responsive-16by9">
+                      <iframe class="embed-responsive-item" allowfullscreen></iframe>
+                  </div>
+              </div>
+            </div>
+    {% endfor %}
+  </div>
+</div>
 
-            // Set iframe click event to pause video and show thumbnail
-            iframe.addEventListener('click', function () {
-                stopAndShowThumbnail();
-            });
+<script src="style/assets/js/jquery-3.6.0.min.js"></script>
+<script src="style/assets/js/slick.min.js"></script>
+<script>
+  // JavaScript code to handle the functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    const bigScreen = document.getElementById('big-screen');
+    const bigVideo = document.getElementById('big-video');
+    const sidebar = document.getElementById('sidebar');
 
-            function stopAndShowThumbnail() {
-                // Stop the video
-                iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-                
-                // Show the thumbnail
-                thumbnail.style.display = 'block';
-            }
-        });
+    thumbnails.forEach(thumbnail => {
+      thumbnail.addEventListener('click', function() {
+        const videoSrc = thumbnail.closest('.video-container').getAttribute('data-video-src');
+        bigVideo.src = videoSrc;
+        bigScreen.style.display = 'flex';
+        sidebar.style.display = 'block';
+      });
     });
-</script>
 
+    bigScreen.addEventListener('click', function(event) {
+      if (event.target === bigScreen) {
+        bigScreen.style.display = 'none';
+        sidebar.style.display = 'none';
+        bigVideo.src = '';
+      }
+    });
+
+    // Initialize Slick Carousel for the sidebar
+    $('.slider').slick({
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      autoplay: false,
+      autoplaySpeed: 2000,
+      arrows: true,
+      dots: true,
+      infinite: false
+    });
+  });
+</script>
 
 
 {% endblock content %}
